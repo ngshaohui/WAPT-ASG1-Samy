@@ -36,8 +36,6 @@ source /home/student/mysite/venv/bin/activate
 # install dependencies
 pip install Django gunicorn
 
-# !!! change machine IP in /home/student/gunicorn.conf !!!
-# CHANGE_TO_MACHINE_IP
 # add gunicorn config
 sudo cp /home/student/gunicorn.conf /etc/supervisor/conf.d/
 sudo mkdir /var/log/gunicorn
@@ -45,6 +43,8 @@ sudo mkdir /var/log/gunicorn
 sudo supervisorctl update
 
 # add nginx config
+# !!! change machine IP in /home/student/mysite.nginx !!!
+# CHANGE_TO_MACHINE_IP
 sudo cp /home/student/mysite.nginx /etc/nginx/sites-enabled/mysite
 # start nginx
 sudo nginx -s reload
