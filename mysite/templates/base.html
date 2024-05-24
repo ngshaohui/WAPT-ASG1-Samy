@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WAPT practical</title>
+    <style>
+      #user-menu {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/"><button>Go to Home</button></a>
+    {% if user.is_authenticated %}
+    <div id="user-menu">
+      Logged in as
+      <label id="username"><strong>{{ user.username }}</strong></label>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+      </form>
+    </div>
+    {% else %}
+    <div>
+      <label>You are not logged in</label>
+      <a href="{% url 'login' %}"><button>Go to Log In page</button></a>
+    </div>
+    {% endif %}
+    <main>{% block content %} {% endblock %}</main>
+  </body>
+</html>

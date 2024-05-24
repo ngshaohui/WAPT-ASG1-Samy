@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block content %} {% if user.is_authenticated %}
+
+<script>
+  function addFriend() {
+    fetch("/friend", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ friend: "{{username}}" }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert("Added {{username}} as a friend");
+        location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert(error);
+      });
+  }
+  function editContent() {
+    const formData = new FormData(document.getElementById("contentUpdateForm"));
+    const jsonObject = {};
+    formData.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
+
+    fetch("/profile/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsonObject),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert("Updated content");
+        location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert(error);
+      });
+  }
+</script>
+{% else %}
+<p>You need to be logged in</p>
+{% endif %}
+
+<h1>Viewing profile for {{username}}</h1>
+
+<br />
+
+{% if user.username != username %}
+<button type="button" onclick="addFriend()">
+  Add {{username}} as a friend
+</button>
+{% endif %}
+
+<br />
+
+<h2>About me</h2>
+<p>{{content |safe}}</p>
+
+{% if user.username == username %}
+<form id="contentUpdateForm">
+  <label for="content">Update content about yourself:</label>
+  <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+
+  <br />
+
+  <button type="button" onclick="editContent()">Submit</button>
+</form>
+{% endif %}
+
+<h2>Friends</h2>
+<ol>
+  {% if friends %} {% for friend in friends %}
+  <li>{{friend.user2}}</li>
+  {% endfor %}
+</ol>
+{% else %}
+<p>None yet &#58;&#40;</p>
+{% endif %}
+<br />
+
+<br />
+{% endblock %}

@@ -1,0 +1,11 @@
+# virtual environment
+venv/
+
+# cache
+__pycache__/
+
+# annoying
+.DS_Store
+
+# solution xD
+solution/
