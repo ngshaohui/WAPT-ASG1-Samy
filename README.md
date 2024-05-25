@@ -43,9 +43,9 @@ sudo mkdir /var/log/gunicorn
 sudo supervisorctl update
 
 # add nginx config
-# !!! change machine IP in /home/student/mysite.nginx !!!
-# CHANGE_TO_MACHINE_IP
 sudo cp /home/student/mysite.nginx /etc/nginx/sites-enabled/mysite
+# unlink default nginx config to disable it
+sudo unlink /etc/nginx/sites-enabled/default
 # start nginx
 sudo nginx -s reload
 ```
