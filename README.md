@@ -43,7 +43,9 @@ sudo mkdir /var/log/gunicorn
 sudo supervisorctl update
 
 # add nginx config
-sudo cp /home/student/mysite.nginx /etc/nginx/sites-enabled/mysite
+sudo cp /home/student/mysite.nginx /etc/nginx/sites-available/mysite
+# enable config
+sudo ln -s /etc/nginx/sites-available/mysite /etc/nginx/sites-enabled/
 # unlink default nginx config to disable it
 sudo unlink /etc/nginx/sites-enabled/default
 # start nginx
