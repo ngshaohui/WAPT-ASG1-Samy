@@ -9,9 +9,12 @@
 <br />
 
 {% if user.username != username %}
-<button type="button" onclick="addFriend()">
-  Add {{username}} as a friend
-</button>
+<form id="addFriendForm">
+  {% csrf_token %}
+  <input type="hidden" id="friend" name="friend" value="{{username}}" />
+
+  <button id="friend-btn" type="button">Add {{username}} as a friend</button>
+</form>
 {% endif %}
 
 <br />
@@ -21,6 +24,7 @@
 
 {% if user.username == username %}
 <form id="contentUpdateForm">
+  {% csrf_token %}
   <label for="content">Update content about yourself:</label>
   <textarea id="content" name="content" rows="4" cols="50" required></textarea>
 

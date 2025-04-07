@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseBadRequest, JsonResponse
 from polls.models import Friendship, Profile
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import json
 
@@ -41,7 +40,6 @@ def seed(request):
 
 
 @login_required
-@csrf_exempt
 def add_friend(request):
     username = request.user.username
     request_body = request.body.decode('utf-8')
