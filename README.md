@@ -20,30 +20,35 @@ scp mysite.zip student@CHANGE_TO_MACHINE_IP:/home/student
 
 ```bash
 # unzip zip (or can just use the gui to extract)
-unzip mysite.zip
+sudo unzip /home/student/mysite.zip
 
 # install supervisor to startup django app automatically
-sudo apt install supervisor
+sudo apt install supervisor -y
+# add repositories for older versions of python
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
 # install python virtualenv
-sudo apt install python3-venv
+sudo apt install python3-venv -y
 # install nginx as a web server
-sudo apt install nginx
+sudo apt install nginx -y
 
 # create virtualenv
 python3 -m venv /home/student/mysite/venv
 # activate virtualenv
 source /home/student/mysite/venv/bin/activate
 # install dependencies
-pip install Django gunicorn
+pip install Django gunicorn whitenoise
+# generate static files
+python /home/student/mysite/manage.py collectstatic
 
 # add gunicorn config
-sudo cp /home/student/gunicorn.conf /etc/supervisor/conf.d/
+sudo cp /home/student/configs/gunicorn.conf /etc/supervisor/conf.d/
 sudo mkdir /var/log/gunicorn
 # start gunicorn with supervisor
 sudo supervisorctl update
 
 # add nginx config
-sudo cp /home/student/mysite.nginx /etc/nginx/sites-available/mysite
+sudo cp /home/student/configs/mysite.nginx /etc/nginx/sites-available/mysite
 # enable config
 sudo ln -s /etc/nginx/sites-available/mysite /etc/nginx/sites-enabled/
 # unlink default nginx config to disable it

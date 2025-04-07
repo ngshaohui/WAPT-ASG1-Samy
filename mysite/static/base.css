@@ -1,0 +1,9 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#user-menu {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

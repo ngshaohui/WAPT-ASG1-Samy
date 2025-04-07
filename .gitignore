@@ -4,6 +4,9 @@ venv/
 # cache
 __pycache__/
 
+# build files
+staticfiles/
+
 # annoying
 .DS_Store
 
