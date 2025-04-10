@@ -7,22 +7,22 @@
   </head>
 
   <body>
-    <a href="/"><button>Go to Home</button></a>
-    {% if user.is_authenticated %}
+    <nav class="navbar">
+      <a href="/"><button>Go to Home</button></a>
+      <a href="/reset"><button>Reset application</button></a>
+    </nav>
     <div id="user-menu">
-      Logged in as
+      {% if user.is_authenticated %} Logged in as
       <label id="username"><strong>{{ user.username }}</strong></label>
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Log Out</button>
       </form>
-    </div>
-    {% else %}
-    <div>
+      {% else %}
       <label>You are not logged in</label>
       <a href="{% url 'login' %}"><button>Go to Log In page</button></a>
+      {% endif %}
     </div>
-    {% endif %}
     <main>{% block content %} {% endblock %}</main>
   </body>
 </html>

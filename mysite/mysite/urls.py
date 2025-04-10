@@ -23,6 +23,6 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("profile/", include("polls.urls")),
     path("", views.index, name="home"),
-    path("reset", views.seed, name="seed"),
+    path("reset", views.reset, name="reset"),
     path("friend", views.add_friend, name="add_friend"),
 ]

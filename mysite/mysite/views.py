@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponseBadRequest, JsonResponse
 from polls.models import Friendship, Profile
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 import json
 
@@ -30,13 +30,26 @@ def init_user(username: str):
                            content=f'I am {username}')
 
 
-def seed(request):
+def seed():
     User.objects.all().delete()
     Profile.objects.all().delete()
     Friendship.objects.all().delete()
     for user in USERS:
         init_user(user)
     return JsonResponse({"success": True})
+
+
+def reset(request):
+    if request.method == "POST":
+        confirm = request.POST.get('confirm')
+
+        if confirm != "confirm":
+            return JsonResponse({"success": False})
+
+        seed()
+        return redirect("/")
+    else:
+        return render(request, "reset.html")
 
 
 @login_required
