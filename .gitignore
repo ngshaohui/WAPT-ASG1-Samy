@@ -6,6 +6,7 @@ __pycache__/
 
 # build files
 staticfiles/
+mysite.zip
 
 # annoying
 .DS_Store

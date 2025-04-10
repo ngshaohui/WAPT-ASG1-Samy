@@ -20,7 +20,7 @@ scp mysite.zip student@CHANGE_TO_MACHINE_IP:/home/student
 
 ```bash
 # unzip zip (or can just use the gui to extract)
-sudo unzip /home/student/mysite.zip
+unzip /home/student/mysite.zip
 
 # install supervisor to startup django app automatically
 sudo apt install supervisor -y
