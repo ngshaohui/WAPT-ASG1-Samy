@@ -13,7 +13,9 @@
   {% csrf_token %}
   <input type="hidden" id="friend" name="friend" value="{{username}}" />
 
-  <button id="friend-btn" type="button">Add {{username}} as a friend</button>
+  <button id="friend-btn" type="button" class="btn btn-success">
+    Add {{username}} as a friend
+  </button>
 </form>
 {% endif %}
 
@@ -30,7 +32,7 @@
 
   <br />
 
-  <button id="update-btn" type="button">Submit</button>
+  <button id="update-btn" type="button" class="btn btn-primary">Submit</button>
 </form>
 {% endif %}
 
