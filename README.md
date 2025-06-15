@@ -80,3 +80,21 @@ Students will learn about the technical details of XSS, how to test and exploit 
 ## Description
 
 Students are to set up a vulnerable lab environment on an ubuntu virtual machine consisting of a web application vulnerable to XSS. Students will have to complete a series of tasks to learn about XSS attacks, and develop an exploit for it.
+
+## Troubleshooting
+
+### 502 Bad Gateway
+
+This indicates that nginx (web server) is not able to reach the Django web application.
+
+We can troubleshoot this by looking at the nginx logs
+
+```bash
+# tail shows the tail end of the file
+# -f allows the you to view the contents of the file as it updates with new data
+tail -f /var/log/nginx/error.log
+```
+
+### Hosting on a non conventional port (apart from ports 80 and 443)
+
+If for some reason you decide not to host the application on port 80 (the nginx config has already been set up to do so), you'll also need to specify your Origin's (attacker) IP in `CSRF_TRUSTED_ORIGINS`
