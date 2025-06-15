@@ -13,3 +13,9 @@
   gap: 20px;
   margin: 20px 0;
 }
+
+/* hackish: we need the form to come before the XSS so that the element exists */
+.about {
+  display: flex;
+  flex-direction: column-reverse;
+}

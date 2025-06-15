@@ -21,20 +21,38 @@
 
 <br />
 
-<h2>About me</h2>
-<p>{{content |safe}}</p>
+<div class="about">
 
-{% if user.username == username %}
-<form id="contentUpdateForm">
-  {% csrf_token %}
-  <label for="content">Update content about yourself:</label>
-  <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+  {% if user.username == username %}
+  <form id="contentUpdateForm">
+    {% csrf_token %}
+    <label for="content">Update content about yourself:</label>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea>
 
-  <br />
+    <br />
 
-  <button id="update-btn" type="button" class="btn btn-primary">Submit</button>
-</form>
-{% endif %}
+    <button id="update-btn" type="button" class="btn btn-primary">Submit</button>
+  </form>
+  {% else %}
+  <!-- this is a hackish way to allow this XSS due to the form design -->
+  <!-- TODO refactor this cleanly -->
+  <form style="display: none;" id="contentUpdateForm">
+    {% csrf_token %}
+    <label for="content">Update content about yourself:</label>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+
+    <br />
+
+    <button id="update-btn" type="button" class="btn btn-primary">Submit</button>
+  </form>
+
+  {% endif %}
+
+  <div>
+    <h2>About me</h2>
+    <p id="vuln">{{content |safe}}</p>
+  </div>
+</div>
 
 <h2>Friends</h2>
 <ol>
