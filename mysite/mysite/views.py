@@ -51,7 +51,6 @@ def reset(request):
     else:
         return render(request, "reset.html")
 
-
 @login_required
 def add_friend(request):
     username = request.user.username
